@@ -1,16 +1,34 @@
-/* global.css */
-
-@keyframes fadeInUp {
+@keyframes scrollUp {
   0% {
-    opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(0);
   }
   100% {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-100%);
   }
 }
 
-.animate-fadeInUp {
-  animation: fadeInUp 1s ease-out;
+.experience-list-container {
+  overflow: hidden;
+  height: 300px; /* Ajusta la altura a lo que necesites */
+  position: relative;
+}
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  animation: scrollUp 34s linear infinite;
+}
+
+.experience-item {
+  height: 150px; /* Ajusta la altura según el contenido */
+}
+
+@media (max-width: 768px) {
+  .experience-list-container {
+    height: 200px; /* Ajusta para pantallas más pequeñas */
+  }
+
+  .experience-item {
+    height: 150px; /* Ajusta según el contenido */
+  }
 }
