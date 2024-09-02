@@ -1,28 +1,31 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro"
+import ExperienceItem from './ExperienceItem.astro';
+
 const EXPERIENCE = [
   {
     date: "Actualmente...",
-    title: "Creador de Contenido",
-    company: "Twitch",
+    title: "Gestor para el proyecto Corporate de Vodafone",
+    company: "Instelca S.L.U",
     description:
-      "Divulgo sobre programación y desarrollo web en diferentes plataformas. Galardonado como mejor creador de contenido de habla no-inglesa en 2022 y mejor comunidad en 2023 por GitHub.",
-    link: "https://twitch.tv/midudev",
+      "Lideré y supervisé un equipo dinámico de más de 30 personas en proyectos de telecomunicaciones para grandes clientes como Vodafone, Mercadona, Dia, El Corte Inglés, Endesa, Junta de Andalucía, y la Comunidad Autónoma de la región de Murcia, asegurando la eficiencia operativa. Implementé prácticas de gestión de proyectos que mejoraron la eficiencia operativa en un 20%. Desarrollé estrategias de coordinación que redujeron los tiempos de respuesta a incidentes en un 30%.",
   },
   {
-    date: "Septiembre 2022",
-    title: "Principal Frontend Engineer",
-    company: "Adevinta Spain",
+    date: "Junio 2014",
+    title: "Técnico I+M y proyecto Corporate",
+    company: "Instelca S.L.U",
     description:
-      "Responsable de la plataforma, componentes y utilidades para la creación y desarrollo de aplicaciones web. Mejora de un 30% en la entrega de software. Implantación de medidas de integración continua y despliegue con A/B testing en más de 15 equipos.",
+      "Instalé y mantuve sistemas de telecomunicaciones y redes de datos, mejorando la conectividad y el rendimiento en un 15%. Desarrollé soluciones innovadoras para la optimización de redes, reduciendo las interrupciones del servicio en un 25%.",
   },
-]
+];
 ---
 
-<ol class="relative mt-16">
+<ol class="relative mt-16 space-y-4">
   {
-    EXPERIENCE.map((experience) => (
-      <li class="">
+    EXPERIENCE.map((experience, index) => (
+      <li
+        class="relative animate-fadeInUp"
+        style={{ animationDelay: `${index * 200}ms` }}
+      >
         <ExperienceItem {...experience} />
       </li>
     ))
