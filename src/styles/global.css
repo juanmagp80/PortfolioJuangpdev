@@ -16,7 +16,7 @@
 .experience-list {
   display: flex;
   flex-direction: column;
-  animation: scrollUp 34s linear infinite;
+  animation: scrollUp 48s linear infinite;
 }
 
 .experience-item {
