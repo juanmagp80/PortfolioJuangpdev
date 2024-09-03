@@ -1,4 +1,6 @@
 ---
+import ReactIcon from "../components/icons/ReactIcon.astro";
+
 // TechSkills.astro
 
 const skills = [
@@ -6,20 +8,23 @@ const skills = [
     { name: "JavaScript", percentage: 90, color: "bg-yellow-500" },
     { name: "HTML", percentage: 95, color: "bg-red-500" },
     { name: "CSS", percentage: 75, color: "bg-blue-500" },
-    { name: "Node.js", percentage: 80, color: "bg-red-600" },
+    { name: "Node.js", percentage: 80, color: "bg-green-600" },
     { name: "TypeScript", percentage: 40, color: "bg-blue-800" },
-    { name: "NextJS", percentage: 80, color: "bg-black" },
-    { name: "Tailwind", percentage: 80, color: "bg-blue-500" },
-    { name: "PostgreSQL", percentage: 80, color: "bg-blue-500" },
+    { name: "NextJS", percentage: 80, color: "bg-gray-900" },
+    { name: "Tailwind", percentage: 80, color: "bg-blue-400" },
+    { name: "PostgreSQL", percentage: 80, color: "bg-blue-800" },
     { name: "Supabase", percentage: 80, color: "bg-yellow-500" },
-    { name: "React Native", percentage: 60, color: "bg-red-600" },
+    { name: "React Native", percentage: 60, color: "bg-blue-500" },
 ];
 ---
 
 <section id="skills" class="mt-16">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">
-        Tecnologías
-    </h2>
+    <div class="flex items-center mb-6">
+        <ReactIcon class="mr-4" />
+        <h2 class="text-3xl ml-4 font-bold text-gray-800 dark:text-gray-100">
+            Tecnologías
+        </h2>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {
             skills.map((skill) => (
@@ -48,16 +53,18 @@ const skills = [
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const progressBar = entry.target.querySelector(
-                            ".progress",
-                        ) as HTMLElement;
-                        if (progressBar) {
+                    const progressBar = entry.target.querySelector(
+                        ".progress",
+                    ) as HTMLElement;
+                    if (progressBar) {
+                        if (entry.isIntersecting) {
                             const percentage =
                                 progressBar.getAttribute("data-percentage");
                             if (percentage) {
                                 progressBar.style.width = percentage + "%";
                             }
+                        } else {
+                            progressBar.style.width = "0%";
                         }
                     }
                 });
