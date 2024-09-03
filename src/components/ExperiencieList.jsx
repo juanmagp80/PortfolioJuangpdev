@@ -21,7 +21,7 @@ const EXPERIENCE = [
 const ExperienceList = () => {
     return (
         <div className="experience-list-container">
-            <ol className="relative mt-16 space-y-56 experience-list">
+            <ol className="relative mt-16 space-y-52 md:space-y-28 lg:space-y-28 experience-list">
                 {EXPERIENCE.concat(EXPERIENCE).map((experience, index) => (
                     <li key={index} className="experience-item">
                         <ExperienceItem {...experience} />
