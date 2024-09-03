@@ -1,15 +1,16 @@
 ---
-import Layout from "@/layouts/Layout.astro"
+import Layout from "@/layouts/Layout.astro";
 
-import AboutMe from "@/components/AboutMe.astro"
-import Hero from "@/components/Hero.astro"
-import Briefcase from "@/components/icons/Briefcase.astro"
-import CodeIcon from "@/components/icons/Code.astro"
-import ProfileCheck from "@/components/icons/ProfileCheck.astro"
-import Projects from "@/components/Projects.astro"
-import SectionContainer from "@/components/SectionContainer.astro"
-import TitleSection from "@/components/TitleSection.astro"
-import ExperienceList from "../components/ExperiencieList"
+import AboutMe from "@/components/AboutMe.astro";
+import Hero from "@/components/Hero.astro";
+import Projects from "@/components/Projects.astro";
+import SectionContainer from "@/components/SectionContainer.astro";
+import TitleSection from "@/components/TitleSection.astro";
+import Briefcase from "@/components/icons/Briefcase.astro";
+import CodeIcon from "@/components/icons/Code.astro";
+import ProfileCheck from "@/components/icons/ProfileCheck.astro";
+import ExperienceList from "../components/ExperiencieList";
+import TechSkills from "../components/TechSkills.astro";
 ---
 
 <Layout
@@ -18,17 +19,17 @@ import ExperienceList from "../components/ExperiencieList"
 >
   <main class="px-4">
     <SectionContainer class="py-16 md:py-36">
-      <Hero>
-      </slot>
-    </Hero>
+      <Hero />
     </SectionContainer>
-    <div class="space-y-24">
+  </main>
+  <div class="space-y-24">
     <SectionContainer id="experiencia">
       <TitleSection>
         <Briefcase class="size-8" />
         Experiencia laboral
       </TitleSection>
       <ExperienceList />
+      <TechSkills />
     </SectionContainer>
 
     <SectionContainer id="proyectos">
@@ -47,5 +48,4 @@ import ExperienceList from "../components/ExperiencieList"
       <AboutMe />
     </SectionContainer>
   </div>
-  </main>
 </Layout>

@@ -1,0 +1,80 @@
+---
+// TechSkills.astro
+
+const skills = [
+    { name: "React", percentage: 85, color: "bg-blue-500" },
+    { name: "JavaScript", percentage: 90, color: "bg-yellow-500" },
+    { name: "HTML", percentage: 95, color: "bg-red-500" },
+    { name: "CSS", percentage: 75, color: "bg-blue-500" },
+    { name: "Node.js", percentage: 80, color: "bg-red-600" },
+    { name: "TypeScript", percentage: 40, color: "bg-blue-800" },
+    { name: "NextJS", percentage: 80, color: "bg-black" },
+    { name: "Tailwind", percentage: 80, color: "bg-blue-500" },
+    { name: "PostgreSQL", percentage: 80, color: "bg-blue-500" },
+    { name: "Supabase", percentage: 80, color: "bg-yellow-500" },
+    { name: "React Native", percentage: 60, color: "bg-red-600" },
+];
+---
+
+<section id="skills" class="mt-16">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+        Tecnologías
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {
+            skills.map((skill) => (
+                <div class="skill">
+                    <h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">
+                        {skill.name}
+                    </h3>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                        <div
+                            class={`progress h-4 rounded-full ${skill.color}`}
+                            style="width: 0%;"
+                            data-percentage={skill.percentage}
+                        />
+                    </div>
+                    <span class="text-sm text-gray-600 dark:text-gray-400">
+                        {skill.percentage}%
+                    </span>
+                </div>
+            ))
+        }
+    </div>
+</section>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const progressBar = entry.target.querySelector(
+                            ".progress",
+                        ) as HTMLElement;
+                        if (progressBar) {
+                            const percentage =
+                                progressBar.getAttribute("data-percentage");
+                            if (percentage) {
+                                progressBar.style.width = percentage + "%";
+                            }
+                        }
+                    }
+                });
+            },
+            {
+                threshold: 0.3,
+            },
+        );
+
+        document.querySelectorAll(".skill").forEach((skill) => {
+            observer.observe(skill);
+        });
+    });
+</script>
+
+<style>
+    .progress {
+        transition: width 1.5s ease-in-out;
+    }
+</style>

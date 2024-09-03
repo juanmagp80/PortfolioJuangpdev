@@ -16,6 +16,20 @@ const EXPERIENCE = [
         description:
             "Instalé y mantuve sistemas de telecomunicaciones y redes de datos, mejorando la conectividad y el rendimiento en un 15%. Desarrollé soluciones innovadoras para la optimización de redes, reduciendo las interrupciones del servicio en un 25%.",
     },
+    {
+        date: "Agosto 2009",
+        title: "Administrador de franquicia",
+        company: "APP Informática",
+        description:
+            "Gestioné operaciones diarias y aseguré la satisfacción del cliente, logrando un aumento del 10% en las ventas anuales.Implementé estrategias de marketing local que incrementaron la base de clientes en un 20%.",
+    },
+    {
+        date: "Febrero 2008",
+        title: "Inspector de obra",
+        company: "Gas Natural Fenosa",
+        description:
+            "Realicé inspecciones en instalaciones para garantizar el cumplimiento de estándares de calidad y seguridad, mejorando la fiabilidad de los proyectos en un 10%.",
+    },
 ];
 
 const ExperienceList = () => {
