@@ -1,0 +1,67 @@
+---
+const certifications = [
+    {
+        title: "React Developer",
+        platform: "Udemy",
+        date: "Agosto 2023",
+        icon: "/icons/react.svg",
+    },
+    {
+        title: "JavaScript Avanzado",
+        platform: "freeCodeCamp",
+        date: "Julio 2023",
+        icon: "/icons/js.svg",
+    },
+    // Agrega más certificaciones aquí
+];
+---
+
+<section class="certifications-container">
+    {
+        certifications.map((cert) => (
+            <div class="certification-card">
+                <img src={cert.icon} alt={cert.title} class="cert-icon" />
+                <h2>{cert.title}</h2>
+                <p>{cert.platform}</p>
+                <p>{cert.date}</p>
+            </div>
+        ))
+    }
+</section>
+
+<style>
+    .certifications-container {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .certification-card {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition:
+            transform 0.3s,
+            box-shadow 0.3s;
+    }
+
+    .certification-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .cert-icon {
+        width: 40px;
+        height: auto;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin: 0.5rem 0;
+    }
+
+    p {
+        color: #555;
+    }
+</style>
