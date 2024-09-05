@@ -7,6 +7,7 @@ import Projects from "@/components/Projects.astro";
 import SectionContainer from "@/components/SectionContainer.astro";
 import TitleSection from "@/components/TitleSection.astro";
 import Briefcase from "@/components/icons/Briefcase.astro";
+import Certify from "@/components/icons/Certify.astro";
 import CodeIcon from "@/components/icons/Code.astro";
 import ProfileCheck from "@/components/icons/ProfileCheck.astro";
 import Certifications from "../components/Certifications.astro";
@@ -30,7 +31,16 @@ import TechSkills from "../components/TechSkills.astro";
         Experiencia laboral
       </TitleSection>
       <ExperienceList />
+    </SectionContainer>
+    <SectionContainer id="tecnologias">
+      <TitleSection />
       <TechSkills />
+    </SectionContainer>
+    <SectionContainer id="certificaciones">
+      <TitleSection>
+        <Certify class="size-7" />
+        Certificaciones
+      </TitleSection>
       <Certifications />
     </SectionContainer>
 
