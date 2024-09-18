@@ -41,16 +41,65 @@ const navItems = [
 ];
 ---
 
-<header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
+<header class="fixed top-0 z-10 w-full mx-auto mt-2">
   <nav
-    class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
+    class="flex justify-between items-center px-3 text-sm font-medium text-gray-600 dark:text-gray-200"
+  >
+    <div class="text-xl font-bold"></div>
+    <ThemeToggle />
+
+    <!-- Icono del menú hamburguesa -->
+    <button
+      class="block lg:hidden focus:outline-none"
+      id="menu-toggle"
+      aria-label="Abrir menú"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+
+    <!-- Menú de navegación (oculto en pantallas pequeñas) -->
+    <div class="hidden lg:flex space-x-4" id="nav-items">
+      {
+        navItems.map((link) => (
+          <a
+            class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
+            aria-label={link.label}
+            href={link.url}
+          >
+            {link.title}
+          </a>
+        ))
+      }
+      <div class="flex lg:hidden">
+        <ThemeToggle />
+      </div>
+      <div class="hidden lg:flex">
+        <ThemeToggle />
+      </div>
+    </div>
+  </nav>
+
+  <!-- Menú desplegable (solo visible en pantallas pequeñas) -->
+  <div
+    id="mobile-menu"
+    class="hidden lg:hidden flex flex-col items-center mt-4 space-y-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg"
   >
     {
       navItems.map((link) => (
         <a
-          class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
+          class="block w-full text-center py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
           aria-label={link.label}
           href={link.url}
         >
@@ -59,51 +108,26 @@ const navItems = [
       ))
     }
     <ThemeToggle />
-  </nav>
+  </div>
 </header>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const sections = document.querySelectorAll("section");
-    const navItems = document.querySelectorAll("header nav a");
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
 
-    const callback = (entries: any[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navItems.forEach((item) => {
-            if (item.getAttribute("aria-label") == entry.target.id) {
-              item.classList.add("text-blue-500");
-            } else {
-              item.classList.remove("text-blue-500");
-            }
-          });
-        }
+    // Asegúrate de que los elementos existan antes de agregar el event listener
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
       });
-    };
 
-    const observer = new IntersectionObserver(callback, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.3,
-    });
-
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
-
-    // Cleanup function
-    document.onvisibilitychange = () => {
-      if (document.visibilityState === "hidden") {
-        observer.disconnect();
-      } else {
-        sections.forEach((section) => {
-          observer.observe(section);
-        });
-      }
-    };
+      mobileMenu.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    }
   });
 </script>
-
 <style>
   nav {
     animation: nav-shadown 1s linear both;
