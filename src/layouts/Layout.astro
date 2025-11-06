@@ -125,7 +125,7 @@ const { description, title } = Astro.props;
         
         if (scrollIndicator) {
           window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset;
+            const scrollTop = window.scrollY;
             const docHeight = document.body.scrollHeight - window.innerHeight;
             const scrollPercent = scrollTop / docHeight;
             

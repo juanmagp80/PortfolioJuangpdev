@@ -197,7 +197,6 @@ const navItems = [
     }
 
     // Active navigation
-    const sections = document.querySelectorAll('[data-section]');
     const navLinks = document.querySelectorAll('.nav-link, .nav-link-mobile');
     
     const observerOptions = {
@@ -238,8 +237,6 @@ const navItems = [
     });
 
     // Header scroll effect
-    let lastScrollY = window.scrollY;
-    
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
@@ -250,8 +247,6 @@ const navItems = [
           mainNav.classList.remove('scrolled');
         }
       }
-      
-      lastScrollY = currentScrollY;
     };
 
     // Throttle scroll events for better performance
