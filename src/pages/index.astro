@@ -13,30 +13,36 @@ import ProfileCheck from "@/components/icons/ProfileCheck.astro";
 import Certifications from "../components/Certifications.astro";
 import ExperienceList from "../components/ExperiencieList";
 import TechSkills from "../components/TechSkills.astro";
+import Contact from "../components/Contact.astro";
 ---
 
 <Layout
   title="Porfolio de Juanma Garrido - Desarrollador y Programador Web"
   description="Aplicaciones Web y Mobile."
 >
-  <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
+  <main class="px-4 lg:px-8">
+    <SectionContainer class="py-20 md:py-40 lg:py-48">
       <Hero />
     </SectionContainer>
   </main>
-  <div class="space-y-24">
-    <SectionContainer id="experiencia">
+  <div class="space-y-32 lg:space-y-40">
+    <SectionContainer id="experiencia" class="relative">
+      <div class="absolute -top-20 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
       <TitleSection>
         <Briefcase class="size-8" />
         Experiencia laboral
       </TitleSection>
       <ExperienceList />
     </SectionContainer>
-    <SectionContainer id="tecnologias">
+    
+    <SectionContainer id="tecnologias" class="relative">
+      <div class="absolute -top-20 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
       <TitleSection />
       <TechSkills />
     </SectionContainer>
-    <SectionContainer id="certificaciones">
+    
+    <SectionContainer id="certificaciones" class="relative">
+      <div class="absolute -top-20 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
       <TitleSection>
         <Certify class="size-7" />
         Certificaciones
@@ -44,7 +50,8 @@ import TechSkills from "../components/TechSkills.astro";
       <Certifications />
     </SectionContainer>
 
-    <SectionContainer id="proyectos">
+    <SectionContainer id="proyectos" class="relative">
+      <div class="absolute -top-20 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
       <TitleSection>
         <CodeIcon class="size-7" />
         Proyectos
@@ -52,12 +59,18 @@ import TechSkills from "../components/TechSkills.astro";
       <Projects />
     </SectionContainer>
 
-    <SectionContainer id="sobre-mi">
+    <SectionContainer id="sobre-mi" class="relative">
+      <div class="absolute -top-20 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
       <TitleSection>
         <ProfileCheck class="size-8" />
         Sobre mí
       </TitleSection>
       <AboutMe />
+    </SectionContainer>
+
+    <SectionContainer id="contacto" class="relative pb-20">
+      <div class="absolute -top-20 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
+      <Contact />
     </SectionContainer>
   </div>
 </Layout>

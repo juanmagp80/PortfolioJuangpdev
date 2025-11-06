@@ -1,0 +1,97 @@
+---
+import Mail from "./icons/Mail.astro";
+import LinkedIn from "./icons/LinkedIn.astro";
+import GitHub from "./icons/GitHub.astro";
+---
+
+<section class="relative py-20 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+  <!-- Decorative elements -->
+  <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-full -translate-y-32 translate-x-32"></div>
+  <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full translate-y-24 -translate-x-24"></div>
+  
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <div class="mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          ¿Colaboramos?
+        </span>
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        Estoy disponible para proyectos freelance, colaboraciones y oportunidades laborales. 
+        ¡Hablemos sobre tu próximo proyecto!
+      </p>
+    </div>
+
+    <!-- Contact options -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <!-- Email -->
+      <a 
+        href="mailto:juangpdev@gmail.com"
+        class="group p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+      >
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+          <Mail class="w-6 h-6 text-white" />
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">Email</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">juangpdev@gmail.com</p>
+      </a>
+
+      <!-- LinkedIn -->
+      <a 
+        href="https://www.linkedin.com/in/jmgpdev/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+      >
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+          <LinkedIn class="w-6 h-6 text-white" />
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">LinkedIn</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">@jmgpdev</p>
+      </a>
+
+      <!-- GitHub -->
+      <a 
+        href="https://github.com/juanmagp80"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+      >
+        <div class="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+          <GitHub class="w-6 h-6 text-white" />
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">GitHub</h3>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">@juanmagp80</p>
+      </a>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="space-y-4">
+      <a 
+        href="mailto:juangpdev@gmail.com"
+        class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg"
+      >
+        <Mail class="w-5 h-5" />
+        Enviar mensaje
+      </a>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Respondo en menos de 24 horas 🚀
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .group:hover .floating {
+    animation: float 2s ease-in-out infinite;
+  }
+</style>

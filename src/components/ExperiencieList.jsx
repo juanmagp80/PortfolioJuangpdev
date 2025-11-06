@@ -3,6 +3,13 @@ import ExperienceItem from './ExperienceItem';
 
 const EXPERIENCE = [
     {
+        date: "2024 - Presente",
+        title: "Fundador & Full Stack Developer - Roulyx.com",
+        company: "Proyecto Personal",
+        description:
+            "Desarrollé desde cero una plataforma SaaS completa que democratiza el acceso a 40+ modelos de IA (GPT-4, Claude, Gemini, Grok) a través de una API unificada. Implementé routing inteligente basado en costo y rendimiento, dashboard con analíticas en tiempo real, sistema de facturación con Stripe, autenticación robusta y gestión de API keys. Stack: Next.js 14, TypeScript, Supabase, Tailwind CSS, Clerk Auth, Stripe. La plataforma está funcionando en modo test con planes escalables desde FREE hasta ENTERPRISE.",
+    },
+    {
         date: "Actualmente...",
         title: "Gestor de proyecto Corporate de Vodafone",
         company: "Instelca S.L.U",

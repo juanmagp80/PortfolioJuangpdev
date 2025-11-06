@@ -4,6 +4,7 @@ import "@fontsource-variable/onest";
 import { ViewTransitions } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import ScrollEffects from "../components/ScrollEffects.astro";
 
 interface Props {
   title: string;
@@ -26,15 +27,20 @@ const { description, title } = Astro.props;
   </head>
 
   <body class="relative text-black dark:text-white">
+    <!-- Scroll progress indicator -->
+    <div class="scroll-indicator" id="scroll-indicator"></div>
+    
     <div
       class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-50 dark:bg-gray-950
       bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
       dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
     >
+      <div class="floating-particles"></div>
     </div>
     <Header />
     <slot />
     <Footer />
+    <ScrollEffects />
     <style is:global>
       :root {
         color-scheme: light dark;
@@ -111,5 +117,22 @@ const { description, title } = Astro.props;
         }
       }
     </style>
+    
+    <script>
+      // Scroll progress indicator
+      document.addEventListener('DOMContentLoaded', () => {
+        const scrollIndicator = document.getElementById('scroll-indicator') as HTMLElement;
+        
+        if (scrollIndicator) {
+          window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            
+            scrollIndicator.style.transform = `scaleX(${scrollPercent})`;
+          });
+        }
+      });
+    </script>
   </body>
 </html>

@@ -4,44 +4,49 @@ import ReactIcon from "../components/icons/ReactIcon.astro";
 // TechSkills.astro
 
 const skills = [
-    { name: "React", percentage: 85, color: "bg-blue-500" },
-    { name: "JavaScript", percentage: 90, color: "bg-yellow-500" },
-    { name: "HTML", percentage: 95, color: "bg-red-500" },
-    { name: "CSS", percentage: 75, color: "bg-blue-500" },
-    { name: "Node.js", percentage: 80, color: "bg-green-600" },
-    { name: "TypeScript", percentage: 40, color: "bg-blue-800" },
-    { name: "NextJS", percentage: 80, color: "bg-gray-900" },
-    { name: "Tailwind", percentage: 80, color: "bg-blue-400" },
-    { name: "PostgreSQL", percentage: 80, color: "bg-blue-800" },
-    { name: "Supabase", percentage: 80, color: "bg-yellow-500" },
-    { name: "React Native", percentage: 60, color: "bg-blue-500" },
+    { name: "React", percentage: 85, gradient: "from-blue-400 to-blue-600", glow: "shadow-blue-500/50" },
+    { name: "JavaScript", percentage: 90, gradient: "from-yellow-400 to-orange-500", glow: "shadow-yellow-500/50" },
+    { name: "HTML", percentage: 95, gradient: "from-orange-400 to-red-500", glow: "shadow-red-500/50" },
+    { name: "CSS", percentage: 75, gradient: "from-blue-400 to-purple-500", glow: "shadow-purple-500/50" },
+    { name: "Node.js", percentage: 80, gradient: "from-green-400 to-green-600", glow: "shadow-green-500/50" },
+    { name: "TypeScript", percentage: 40, gradient: "from-blue-600 to-blue-800", glow: "shadow-blue-600/50" },
+    { name: "NextJS", percentage: 80, gradient: "from-gray-700 to-black", glow: "shadow-gray-600/50" },
+    { name: "Tailwind", percentage: 80, gradient: "from-cyan-400 to-blue-500", glow: "shadow-cyan-500/50" },
+    { name: "PostgreSQL", percentage: 80, gradient: "from-blue-600 to-indigo-700", glow: "shadow-indigo-500/50" },
+    { name: "Supabase", percentage: 80, gradient: "from-green-400 to-emerald-500", glow: "shadow-emerald-500/50" },
+    { name: "React Native", percentage: 60, gradient: "from-blue-400 to-purple-600", glow: "shadow-purple-500/50" },
 ];
 ---
 
 <section id="skills" class="mt-16">
-    <div class="flex items-center mb-6">
+    <div class="flex items-center mb-8">
         <ReactIcon class="mr-4" />
-        <h2 class="text-3xl ml-4 font-bold text-gray-800 dark:text-gray-100">
+        <h2 class="text-4xl ml-4 font-bold text-gray-800 dark:text-gray-100">
             Tecnologías
         </h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
         {
             skills.map((skill) => (
-                <div class="skill">
-                    <h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">
-                        {skill.name}
-                    </h3>
-                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div class="skill bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                            {skill.name}
+                        </h3>
+                        <span class="text-lg font-bold text-gray-600 dark:text-gray-400 skill-percentage">
+                            0%
+                        </span>
+                    </div>
+                    <div class="relative w-full bg-gray-200 dark:bg-gray-700 rounded-full h-6 overflow-hidden shadow-inner">
                         <div
-                            class={`progress h-4 rounded-full ${skill.color}`}
+                            class={`progress h-6 rounded-full bg-gradient-to-r ${skill.gradient} relative overflow-hidden shadow-lg ${skill.glow}`}
                             style="width: 0%;"
                             data-percentage={skill.percentage}
-                        />
+                        >
+                            <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"></div>
+                            <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-black/20"></div>
+                        </div>
                     </div>
-                    <span class="text-sm text-gray-600 dark:text-gray-400">
-                        {skill.percentage}%
-                    </span>
                 </div>
             ))
         }
@@ -56,15 +61,36 @@ const skills = [
                     const progressBar = entry.target.querySelector(
                         ".progress",
                     ) as HTMLElement;
-                    if (progressBar) {
+                    const percentageElement = entry.target.querySelector(
+                        ".skill-percentage",
+                    ) as HTMLElement;
+                    
+                    if (progressBar && percentageElement) {
                         if (entry.isIntersecting) {
-                            const percentage =
-                                progressBar.getAttribute("data-percentage");
+                            const percentage = progressBar.getAttribute("data-percentage");
                             if (percentage) {
-                                progressBar.style.width = percentage + "%";
+                                // Animar la barra de progreso
+                                setTimeout(() => {
+                                    progressBar.style.width = percentage + "%";
+                                }, 200);
+                                
+                                // Animar el número
+                                let currentPercentage = 0;
+                                const targetPercentage = parseInt(percentage);
+                                const increment = targetPercentage / 50; // 50 frames de animación
+                                
+                                const numberAnimation = setInterval(() => {
+                                    currentPercentage += increment;
+                                    if (currentPercentage >= targetPercentage) {
+                                        currentPercentage = targetPercentage;
+                                        clearInterval(numberAnimation);
+                                    }
+                                    percentageElement.textContent = Math.floor(currentPercentage) + "%";
+                                }, 30);
                             }
                         } else {
                             progressBar.style.width = "0%";
+                            percentageElement.textContent = "0%";
                         }
                     }
                 });
@@ -82,6 +108,52 @@ const skills = [
 
 <style>
     .progress {
-        transition: width 1.5s ease-in-out;
+        transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+    
+    .skill {
+        animation: slideInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .skill:nth-child(even) {
+        animation-delay: 0.1s;
+    }
+    
+    .skill:nth-child(odd) {
+        animation-delay: 0.2s;
+    }
+    
+    .skill:hover {
+        transform: translateY(-2px);
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .progress::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transform: translateX(-100%);
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
     }
 </style>

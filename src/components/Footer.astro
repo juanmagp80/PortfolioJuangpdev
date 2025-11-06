@@ -1,28 +1,97 @@
 ---
+import GitHub from "./icons/GitHub.astro";
+import LinkedIn from "./icons/LinkedIn.astro";
+import Mail from "./icons/Mail.astro";
+
 const currentYear = new Date().getFullYear()
 ---
 
-<footer
-  class="opacity-80 m-4 min-[375px]:pl-4 md:pl-0 mt-16 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center"
->
-  <div
-    class="rounded-lg w-full max-w-screen-xl mx-auto md:flex md:items-center md:justify-between py-4"
-  >
-    <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90"
-      >© {currentYear}
-      <a href="https://www.linkedin.com/in/jmgpdev/" class="hover:underline">Juanma Garrido</a>
-    </span>
-    <ul
-      class="flex flex-wrap items-center mt-3 text-sm font-medium dark:text-white/90 sm:mt-0"
-    >
-      <li>
-        <a href="/#sobre-mi" class="hover:underline me-4 md:me-6">Sobre mí</a>
-      </li>
-      <li>
-        <a id="contacto" href="mailto:juangpdev@gmail.com" class="hover:underline"
-          >Contacto</a
-        >
-      </li>
-    </ul>
+<footer class="relative mt-32 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-t border-gray-200 dark:border-gray-700">
+  <!-- Decorative element -->
+  <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+  </div>
+  
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <!-- Main content -->
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+      <!-- Info personal -->
+      <div class="space-y-4">
+        <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Juanma Garrido
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+          Desarrollador Web Full Stack especializado en React, Next.js y tecnologías modernas.
+        </p>
+        <div class="flex space-x-4">
+          <a 
+            href="https://www.linkedin.com/in/jmgpdev/" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-800/50 transition-colors duration-300"
+            aria-label="LinkedIn"
+          >
+            <LinkedIn class="size-5 text-blue-600 dark:text-blue-400" />
+          </a>
+          <a 
+            href="https://github.com/juanmagp80" 
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
+            aria-label="GitHub"
+          >
+            <GitHub class="size-5" />
+          </a>
+          <a 
+            href="mailto:juangpdev@gmail.com"
+            class="p-2 rounded-lg bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-800/50 transition-colors duration-300"
+            aria-label="Email"
+          >
+            <Mail class="size-5 text-green-600 dark:text-green-400" />
+          </a>
+        </div>
+      </div>
+      
+      <!-- Enlaces rápidos -->
+      <div class="space-y-4">
+        <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Enlaces rápidos</h4>
+        <ul class="space-y-2">
+          <li><a href="/#experiencia" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Experiencia</a></li>
+          <li><a href="/#tecnologias" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Tecnologías</a></li>
+          <li><a href="/#proyectos" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Proyectos</a></li>
+          <li><a href="/#sobre-mi" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Sobre mí</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contacto -->
+      <div class="space-y-4">
+        <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Contacto</h4>
+        <div class="space-y-3">
+          <div class="flex items-center space-x-3">
+            <Mail class="size-4 text-gray-500" />
+            <a href="mailto:juangpdev@gmail.com" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">
+              juangpdev@gmail.com
+            </a>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-2xl">📍</span>
+            <span class="text-gray-600 dark:text-gray-400">Málaga, España</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Separador -->
+    <div class="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent mb-6"></div>
+    
+    <!-- Copyright -->
+    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <div class="text-sm text-gray-500 dark:text-gray-400">
+        © {currentYear} Juanma Garrido. Todos los derechos reservados.
+      </div>
+      <div class="text-sm text-gray-500 dark:text-gray-400">
+        Hecho con ❤️ usando <span class="font-semibold">Astro</span> y <span class="font-semibold">Tailwind CSS</span>
+      </div>
+    </div>
   </div>
 </footer>
