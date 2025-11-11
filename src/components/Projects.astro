@@ -57,7 +57,7 @@ const PROJECTS = [
     image: "/projects/roulyx.png",
     tags: [TAGS.REACT, TAGS.NextJS],
     featured: true,
-    link: "https://roulix.ai", // Añade el link si lo tienes
+    link: "https://roulix.com", // Añade el link si lo tienes
   },
   {
     title: "NFlix - APP sobre informacion de cine y series",
@@ -93,10 +93,23 @@ const PROJECTS = [
 <div class="flex flex-col gap-y-20">
   {
     PROJECTS.map(
-      ({ image, title, description, tags, link, github, download, featured }) => (
-        <article class={`flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-10 md:space-y-0 project-card ${featured ? 'featured-project' : ''}`}>
+      ({
+        image,
+        title,
+        description,
+        tags,
+        link,
+        github,
+        download,
+        featured,
+      }) => (
+        <article
+          class={`flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-10 md:space-y-0 project-card ${featured ? "featured-project" : ""}`}
+        >
           <div class="w-full md:w-1/2">
-            <div class={`relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition-all duration-700 ease-out transform shadow-xl overflow-clip rounded-2xl sm:rounded-2xl border-2 ${featured ? 'border-gradient-to-r from-purple-500 to-blue-500 border-4' : 'border-gray-200/50 dark:border-gray-700/50'} group-hover:border-blue-300/50 dark:group-hover:border-blue-500/50 group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:shadow-blue-500/10 dark:group-hover:shadow-blue-400/20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800`}>
+            <div
+              class={`relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition-all duration-700 ease-out transform shadow-xl overflow-clip rounded-2xl sm:rounded-2xl border-2 ${featured ? "border-gradient-to-r from-purple-500 to-blue-500 border-4" : "border-gray-200/50 dark:border-gray-700/50"} group-hover:border-blue-300/50 dark:group-hover:border-blue-500/50 group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:shadow-blue-500/10 dark:group-hover:shadow-blue-400/20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800`}
+            >
               {featured && (
                 <div class="absolute -top-3 -right-3 z-20">
                   <div class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">
@@ -178,15 +191,17 @@ const PROJECTS = [
   .featured-project {
     position: relative;
   }
-  
+
   .featured-project::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: -4px;
     padding: 4px;
     background: linear-gradient(45deg, #8b5cf6, #3b82f6, #06b6d4, #8b5cf6);
     border-radius: 24px;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     mask-composite: xor;
     opacity: 0.3;
     animation: gradient-border 3s ease infinite;
@@ -217,9 +232,10 @@ const PROJECTS = [
       transform: translateX(0);
     }
   }
-  
+
   @keyframes gradient-border {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
