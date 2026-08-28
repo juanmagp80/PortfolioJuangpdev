@@ -29,6 +29,9 @@ importers:
       astro-robots-txt:
         specifier: 1.0.0
         version: 1.0.0
+      gsap:
+        specifier: ^3.15.0
+        version: 3.15.0
       i18next:
         specifier: ^23.15.1
         version: 23.15.1
@@ -50,6 +53,9 @@ importers:
       typescript:
         specifier: 5.3.3
         version: 5.3.3
+      vanilla-tilt:
+        specifier: ^1.8.1
+        version: 1.8.1
 
 packages:
 
@@ -1359,6 +1365,9 @@ packages:
     resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
     engines: {node: '>=6.0'}
 
+  gsap@3.15.0:
+    resolution: {integrity: sha512-dMW4CWBTUK1AEEDeZc1g4xpPGIrSf9fJF960qbTZmN/QwZIWY5wgliS6JWl9/25fpTGJrMRtSjGtOmPnfjZB+A==}
+
   has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
@@ -2408,6 +2417,9 @@ packages:
   valid-filename@4.0.0:
     resolution: {integrity: sha512-VEYTpTVPMgO799f2wI7zWf0x2C54bPX6NAfbZ2Z8kZn76p+3rEYCTYVYzMUcVSMvakxMQTriBf24s3+WeXJtEg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  vanilla-tilt@1.8.1:
+    resolution: {integrity: sha512-hPB1XUsnh+SIeVSW2beb5RnuFxz4ZNgxjGD78o52F49gS4xaoLeEMh9qrQnJrnEn/vjjBI7IlxrrXmz4tGV0Kw==}
 
   vfile-location@5.0.3:
     resolution: {integrity: sha512-5yXvWDEgqeiYiBe1lbxYF7UMAIm/IcopxMHrMQDq3nvKcjPKIhZklUKL+AE7J7uApI4kwe2snsK+eI6UTj9EHg==}
@@ -3990,6 +4002,8 @@ snapshots:
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
 
+  gsap@3.15.0: {}
+
   has-flag@3.0.0: {}
 
   hasown@2.0.2:
@@ -5336,6 +5350,8 @@ snapshots:
   valid-filename@4.0.0:
     dependencies:
       filename-reserved-regex: 3.0.0
+
+  vanilla-tilt@1.8.1: {}
 
   vfile-location@5.0.3:
     dependencies:
