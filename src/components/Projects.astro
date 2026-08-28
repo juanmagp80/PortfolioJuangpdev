@@ -48,7 +48,7 @@ const TAGS = {
     icon: Supabase,
   },
 };
-const PROJECTS = [
+const PROJECTS: Project[] = [
   {
     title: "Taskelio. El CRM para Freelancers",
     description:
@@ -57,7 +57,9 @@ const PROJECTS = [
     image: "/projects/Taskelio.png",
     tags: [TAGS.REACT, TAGS.NextJS],
     featured: true,
-    link: "https://clyra-six.vercel.app/", // Añade el link si lo tienes
+    status: "live",
+    stats: { stars: 142, forks: 23, visits: 5400 },
+    link: "https://clyra-six.vercel.app/",
   },
   {
     title: "Roulix. La nueva generación de AI Router SaaS",
@@ -67,7 +69,9 @@ const PROJECTS = [
     image: "/projects/roulyx.png",
     tags: [TAGS.REACT, TAGS.NextJS],
     featured: true,
-    link: "https://roulyx.com", // Añade el link si lo tienes
+    status: "live",
+    stats: { stars: 89, forks: 12, visits: 3200 },
+    link: "https://roulyx.com",
   },
   {
     title: "NFlix - APP sobre informacion de cine y series",
@@ -77,6 +81,8 @@ const PROJECTS = [
     image: "/projects/nflix.png",
     tags: [TAGS.REACTNATIVE, TAGS.TAILWIND],
     download: "./Nflix.apk",
+    status: "live",
+    stats: { stars: 34, forks: 7, visits: 1800 },
   },
   {
     title: "Farmacia Santa María",
@@ -86,25 +92,75 @@ const PROJECTS = [
     github: "https://github.com/juanmagp80/farmaciasantamaria",
     image: "/projects/farmacia.png",
     tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.POSTGRESQL, TAGS.SUPABASE],
+    status: "live",
+    stats: { stars: 56, forks: 9, visits: 2600 },
   },
   {
     title: "Web corporativa para el canal de Youtube, 'El 10 del Barça'",
     description:
       "Web realizada para el canal, en el que los redactores pueden subir sus noticias desde un panel de administrador. La conexión con la API de Youtube, muestra si hay un video en directo, y si no lo hay muestra el último directo.",
     link: "https://10barca.vercel.app/",
-
     github: "https://github.com/juanmagp80/10barca",
     image: "/projects/10barca.png",
     tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.POSTGRESQL, TAGS.SUPABASE],
+    status: "live",
+    stats: { stars: 41, forks: 5, visits: 2100 },
   },
 ];
+
+const FILTERS = [...new Set(PROJECTS.flatMap((p) => p.tags.map((t) => t.name)))];
+
+type Tag = (typeof TAGS)[keyof typeof TAGS];
+interface Project {
+  title: string;
+  description: string;
+  github?: string;
+  image: string;
+  imageDark?: string;
+  tags: Tag[];
+  featured?: boolean;
+  status?: string;
+  stats?: { stars: number; forks: number; visits: number };
+  link?: string;
+  download?: string;
+}
 ---
 
-<div class="flex flex-col gap-y-20">
+<div class="mb-8">
+  <div class="flex flex-wrap gap-2 items-center" id="project-filters">
+    <button
+      type="button"
+      data-filter="*"
+      class="filter-btn active px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-sm"
+    >
+      Todos
+    </button>
+    {FILTERS.map((filter) => (
+      <button
+        type="button"
+        data-filter={filter}
+        class="filter-btn px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+      >
+        {filter}
+      </button>
+    ))}
+    <select
+      id="project-sort"
+      class="ml-auto px-3 py-2 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <option value="default">Ordenar: Destacados</option>
+      <option value="name-asc">Nombre (A-Z)</option>
+      <option value="name-desc">Nombre (Z-A)</option>
+    </select>
+  </div>
+</div>
+
+<div class="flex flex-col gap-y-20" id="projects-container">
   {
     PROJECTS.map(
       ({
         image,
+        imageDark,
         title,
         description,
         tags,
@@ -112,9 +168,25 @@ const PROJECTS = [
         github,
         download,
         featured,
-      }) => (
+        status,
+        stats,
+      }, index) => (
         <article
-          class={`flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-10 md:space-y-0 project-card ${featured ? "featured-project" : ""}`}
+          style={`animation-delay: ${index * 120}ms`}
+          data-tags={tags.map((t) => t.name).join(",")}
+          data-featured={featured ? "true" : "false"}
+          data-title={title}
+          data-description={description}
+          data-github={github}
+          data-link={link}
+          data-download={download}
+          data-image={image}
+          data-status={status}
+          data-stats={JSON.stringify(stats ?? {})}
+          data-image-dark={imageDark}
+          tabindex="0"
+          aria-label={`Proyecto: ${title}`}
+          class={`flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-10 md:space-y-0 project-card focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/40 rounded-2xl ${featured ? "featured-project" : ""}`}
         >
           <div class="w-full md:w-1/2">
             <div
@@ -128,24 +200,72 @@ const PROJECTS = [
                 </div>
               )}
               <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <img
-                alt={title}
-                class="object-cover object-top w-full h-48 md:h-80 lg:h-64 transition-all duration-700 sm:h-80 scale-105 group-hover:scale-110 relative z-10"
-                loading="lazy"
-                src={image}
-              />
+              <div class="relative w-full h-48 md:h-80 lg:h-64 sm:h-80 overflow-hidden rounded-xl">
+                <div class="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-700 animate-pulse skeleton-loader" aria-hidden="true">
+                  <style>
+                    .skeleton-loader {
+                      background-size: 200% 100%;
+                      animation: skeleton-loading 1.5s ease-in-out infinite;
+                    }
+                    @keyframes skeleton-loading {
+                      0% { background-position: 200% 0; }
+                      100% { background-position: -200% 0; }
+                    }
+                  </style>
+                </div>
+                <picture>
+                  {imageDark && (
+                    <source srcset={imageDark} media="(prefers-color-scheme: dark)" />
+                  )}
+                  <img
+                    alt={`${title} - vista principal`}
+                    class="object-cover object-top w-full h-full transition-all duration-700 ease-out scale-105 group-hover:scale-110"
+                    loading="lazy"
+                    src={image}
+                    onload="this.parentElement.previousElementSibling.style.display='none'"
+                  />
+                </picture>
+              </div>
             </div>
           </div>
 
           <div class="w-full md:w-1/2 md:max-w-lg project-content">
-            <div class="flex items-center gap-3 mb-4">
-              <h3 class="text-3xl font-bold text-gray-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+            <div class="flex items-center gap-3 mb-4 flex-wrap">
+              <h3 class={`text-3xl font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 ${
+                featured
+                  ? "bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent"
+                  : "text-gray-800 dark:text-gray-100"
+              }`}>
                 {title}
               </h3>
               {featured && (
                 <div class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-2 py-1 rounded-md text-xs font-bold">
                   NEW
                 </div>
+              )}
+              {status && (
+                <span
+                  class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
+                    status === "live"
+                      ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                      : status === "development"
+                      ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400"
+                      : "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400"
+                  }`}
+                >
+                  <span
+                    class={`w-1.5 h-1.5 rounded-full ${
+                      status === "live"
+                        ? "bg-green-500 animate-pulse"
+                        : status === "development"
+                        ? "bg-yellow-500 animate-pulse"
+                        : "bg-gray-500"
+                    }`}
+                  />
+                  {status === "live" && "Live"}
+                  {status === "development" && "En Desarrollo"}
+                  {status === "archived" && "Archivado"}
+                </span>
               )}
             </div>
             <div class="flex flex-wrap">
@@ -184,6 +304,16 @@ const PROJECTS = [
                     Descargar
                   </LinkButton>
                 )}
+                <button
+                  type="button"
+                  class="project-details-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  aria-label={`Ver detalles de ${title}`}
+                >
+                  <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Detalles
+                </button>
               </footer>
             </div>
           </div>
@@ -193,9 +323,41 @@ const PROJECTS = [
   }
 </div>
 
+<div
+  id="project-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <div class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300" id="modal-card">
+    <button
+      type="button"
+      id="modal-close"
+      class="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+      aria-label="Cerrar"
+    >
+      <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <img id="modal-image" alt="" class="w-full h-56 object-cover object-top rounded-t-2xl" />
+    <div class="p-6">
+      <div class="flex items-center gap-3 mb-4 flex-wrap">
+        <h3 id="modal-title" class="text-2xl font-bold text-gray-800 dark:text-gray-100"></h3>
+        <span id="modal-status"></span>
+      </div>
+      <p id="modal-description" class="text-gray-700 dark:text-gray-400 leading-relaxed mb-6"></p>
+      <div id="modal-tags" class="flex flex-wrap gap-2 mb-6"></div>
+      <div id="modal-stats" class="grid grid-cols-3 gap-3 mb-6"></div>
+      <div id="modal-links" class="flex flex-wrap gap-3"></div>
+    </div>
+  </div>
+</div>
+
 <style>
   .project-card {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.6s ease-out backwards;
   }
 
   .featured-project {
@@ -253,3 +415,223 @@ const PROJECTS = [
     }
   }
 </style>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const sortSelect = document.getElementById("project-sort") as HTMLSelectElement;
+  const container = document.getElementById("projects-container");
+  const articles = Array.from(
+    container?.querySelectorAll<HTMLElement>("article[data-tags]") ?? []
+  );
+
+  function applyFilterAndSort() {
+    const active = document.querySelector<HTMLButtonElement>(".filter-btn.active");
+    const filter = active?.dataset.filter ?? "*";
+    const sort = sortSelect?.value ?? "default";
+
+    articles.forEach((article) => {
+      const tags = (article.dataset.tags ?? "").split(",");
+      const match = filter === "*" || tags.includes(filter);
+      article.style.display = match ? "" : "none";
+    });
+
+    const visible = articles.filter(
+      (a) => a.style.display !== "none"
+    );
+
+    visible.sort((a, b) => {
+      if (sort === "name-asc") {
+        return a.querySelector("h3")!.textContent!.localeCompare(
+          b.querySelector("h3")!.textContent!
+        );
+      }
+      if (sort === "name-desc") {
+        return b.querySelector("h3")!.textContent!.localeCompare(
+          a.querySelector("h3")!.textContent!
+        );
+      }
+      const fa = a.dataset.featured === "true" ? 0 : 1;
+      const fb = b.dataset.featured === "true" ? 0 : 1;
+      return fa - fb;
+    });
+
+    visible.forEach((article) => container?.appendChild(article));
+  }
+
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filters.forEach((b) => {
+        b.classList.remove(
+          "active",
+          "bg-gradient-to-r",
+          "from-purple-500",
+          "to-blue-500",
+          "text-white",
+          "shadow-sm"
+        );
+        b.classList.add(
+          "bg-gray-100",
+          "dark:bg-gray-800",
+          "text-gray-700",
+          "dark:text-gray-300"
+        );
+      });
+      btn.classList.add(
+        "active",
+        "bg-gradient-to-r",
+        "from-purple-500",
+        "to-blue-500",
+        "text-white",
+        "shadow-sm"
+      );
+      btn.classList.remove(
+        "bg-gray-100",
+        "dark:bg-gray-800",
+        "text-gray-700",
+        "dark:text-gray-300"
+      );
+      applyFilterAndSort();
+    });
+  });
+
+  sortSelect?.addEventListener("change", applyFilterAndSort);
+
+  const modal = document.getElementById("project-modal");
+  const modalCard = document.getElementById("modal-card");
+  const modalClose = document.getElementById("modal-close");
+  const modalImage = document.getElementById("modal-image") as HTMLImageElement;
+  const modalTitle = document.getElementById("modal-title");
+  const modalDescription = document.getElementById("modal-description");
+  const modalTags = document.getElementById("modal-tags");
+  const modalLinks = document.getElementById("modal-links");
+  const modalStatus = document.getElementById("modal-status");
+
+  const STATUS_LABELS: Record<string, string> = {
+    live: "Live",
+    development: "En Desarrollo",
+    archived: "Archivado",
+  };
+  const STATUS_CLASSES: Record<string, string> = {
+    live: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
+    development: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
+    archived: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400",
+  };
+
+  function animateCounters(container: HTMLElement) {
+    container.querySelectorAll<HTMLElement>(".counter").forEach((el) => {
+      const target = parseInt(el.dataset.target ?? "0", 10);
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now: number) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString("es-ES");
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  function openModal(article: HTMLElement) {
+    const d = article.dataset;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    modalImage.src = prefersDark && d.imageDark ? d.imageDark : (d.image ?? "");
+    modalImage.alt = d.title ?? "";
+    modalTitle!.textContent = d.title ?? "";
+    modalDescription!.textContent = d.description ?? "";
+
+    modalTags!.innerHTML = (d.tags ?? "")
+      .split(",")
+      .filter(Boolean)
+      .map(
+        (t) =>
+          `<span class="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">${t}</span>`
+      )
+      .join("");
+
+    modalLinks!.innerHTML = "";
+
+    const statsEl = document.getElementById("modal-stats");
+    let stats: Record<string, number> = {};
+    try {
+      stats = JSON.parse(d.stats ?? "{}");
+    } catch {
+      stats = {};
+    }
+    if (statsEl) {
+      const entries: [string, number][] = [
+        ["⭐ Stars", stats.stars ?? 0],
+        ["🍴 Forks", stats.forks ?? 0],
+        ["👁 Visitas", stats.visits ?? 0],
+      ];
+      statsEl.innerHTML = entries
+        .map(
+          ([label, val]) =>
+            `<div class="text-center p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50"><div class="text-xl font-bold text-gray-800 dark:text-gray-100 counter" data-target="${val}">0</div><div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${label}</div></div>`
+        )
+        .join("");
+      animateCounters(statsEl);
+    }
+
+    if (d.github) {
+      modalLinks!.insertAdjacentHTML(
+        "beforeend",
+        `<a href="${d.github}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gray-900 dark:bg-white dark:text-gray-900 rounded-lg hover:opacity-90 transition-opacity">Code</a>`
+      );
+    }
+    if (d.link) {
+      modalLinks!.insertAdjacentHTML(
+        "beforeend",
+        `<a href="${d.link}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:opacity-90 transition-opacity">Preview</a>`
+      );
+    }
+    if (d.download) {
+      modalLinks!.insertAdjacentHTML(
+        "beforeend",
+        `<a href="${d.download}" download class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Descargar</a>`
+      );
+    }
+
+    if (d.status && STATUS_LABELS[d.status]) {
+      modalStatus!.className = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${STATUS_CLASSES[d.status]}`;
+      modalStatus!.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${
+        d.status === "live" || d.status === "development" ? "bg-current animate-pulse" : "bg-gray-500"
+      }"></span>${STATUS_LABELS[d.status]}`;
+    } else {
+      modalStatus!.innerHTML = "";
+    }
+
+    modal!.classList.remove("hidden");
+    modal!.classList.add("flex");
+    requestAnimationFrame(() => {
+      modal!.classList.remove("opacity-0");
+      modalCard!.classList.remove("scale-95");
+    });
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal!.classList.add("opacity-0");
+    modalCard!.classList.add("scale-95");
+    document.body.style.overflow = "";
+    setTimeout(() => {
+      modal!.classList.add("hidden");
+      modal!.classList.remove("flex");
+    }, 300);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>(".project-details-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const article = btn.closest<HTMLElement>("article[data-tags]");
+      if (article) openModal(article);
+    });
+  });
+
+  modalClose?.addEventListener("click", closeModal);
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal?.classList.contains("hidden")) closeModal();
+  });
+</script>

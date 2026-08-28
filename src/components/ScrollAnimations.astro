@@ -1,0 +1,71 @@
+---
+// Animaciones de scroll con GSAP + ScrollTrigger (módulo aislado, fácil de quitar)
+---
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  function initGsap() {
+    if (prefersReduced) return;
+
+    // Evita duplicados al re-inicializar (ViewTransitions)
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+
+    // Líneas divisorias de sección se "dibujan" al entrar
+    // immediateRender:false => por defecto visibles (scaleX 1); nunca quedan ocultas
+    gsap.utils.toArray<HTMLElement>("section[data-section] > div.absolute").forEach((line) => {
+      gsap.fromTo(
+        line,
+        { scaleX: 0, transformOrigin: "left center" },
+        {
+          scaleX: 1,
+          duration: 1.1,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: { trigger: line, start: "top 85%" },
+        }
+      );
+    });
+
+    // Parallax de las imágenes de los proyectos
+    gsap.utils.toArray<HTMLElement>("#projects-container img").forEach((img) => {
+      gsap.to(img, {
+        yPercent: -10,
+        ease: "none",
+        scrollTrigger: {
+          trigger: img,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+
+    // Parallax del hero
+    const heroImg = document.querySelector(".hero-image");
+    if (heroImg) {
+      gsap.to(heroImg, {
+        yPercent: 18,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroImg,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+
+    ScrollTrigger.refresh();
+  }
+
+  document.addEventListener("astro:page-load", initGsap);
+  initGsap();
+</script>
